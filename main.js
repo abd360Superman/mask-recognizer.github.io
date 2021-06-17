@@ -5,7 +5,11 @@ let classifier;
 
 
 function setup() {
+    canvas = createCanvas(450, 300);
+    canvas.center();
     video = createCapture(VIDEO);
+    video.size(450, 300);
+    video.hide()
 
     classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/z1bAq0zGI/model.json', video, modelLoaded);
 
@@ -18,10 +22,6 @@ function modelLoaded() {
 }
 
 function classifyVideo() {
-    if(document.querySelector("#result").value === "without mask") {
-        document.querySelector("#result").style.color = "red";
-        console.log(speak());
-    }
     classifier.classify(gotResults);
 }
 
@@ -31,9 +31,6 @@ function gotResults(error, results) {
     setTimeout(classifyVideo(), 2000);
 }
 
-function speak() {
-    var synth = window.speechSynthesis;
-    speak_data = "Alert! Without Mask!";
-    var utterThis = new SpeechSynthesisUtterance(speak_data);
-    synth.speak(utterThis);
+function draw() {
+    image(video, 0, 0, 450, 300);
 }
