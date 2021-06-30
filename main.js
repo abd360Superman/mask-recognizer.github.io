@@ -1,3 +1,5 @@
+var synth = window.speechSynthesis;
+var utter_this = new SpeechSynthesisUtterance('Danger! No Mask!');
 console.log("ml5 version: ", ml5.version);
 
 let video;
@@ -26,6 +28,9 @@ function classifyVideo() {
 }
 
 function gotResults(error, results) {
+    if (results[0].label = 'Without Mask') {
+        synth.speak(utter_this);
+    }
     console.log(results);
     document.querySelector("#result").innerHTML = results[0].label;
     setTimeout(classifyVideo(), 2000);
